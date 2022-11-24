@@ -15,7 +15,7 @@ import 'package:pull_to_refresh_plus/pull_to_refresh_plus.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final box = Hive.box<CharacterModel>('characters');
+  final _box = Hive.box<CharacterModel>('characters');
   final _controller = RefreshController();
 
   @override
@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
             builder: (context, state) {
               if(state is HomeInitState && state.characters.isNotEmpty) {
                 if(ConnectivityService.hasConnection) {
-                  box.clear().then((value) => box.addAll(state.characters));
+                  _box.clear().then((value) => _box.addAll(state.characters));
                 }
                 return SmartRefresher(
                   controller: _controller,
