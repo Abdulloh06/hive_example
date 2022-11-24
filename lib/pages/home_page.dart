@@ -12,15 +12,25 @@ import 'package:local_update/widgets/character_card.dart';
 import 'package:local_update/widgets/loader.dart';
 import 'package:pull_to_refresh_plus/pull_to_refresh_plus.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final _box = Hive.box<CharacterModel>('characters');
   final _controller = RefreshController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     context.read<HomeBloc>().add(HomeInitEvent());
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Posts'),
