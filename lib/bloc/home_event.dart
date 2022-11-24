@@ -8,3 +8,10 @@ class HomeInitEvent extends HomeEvent {
   @override
   List<Object?> get props => [];
 }
+
+class HomeGetNextPageEvent extends HomeEvent {
+  static int page = 1;
+  static bool hasReachedMax = false;
+  @override
+  List<Object?> get props => [];
+}

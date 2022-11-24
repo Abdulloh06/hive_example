@@ -7,6 +7,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:local_update/bloc/home_bloc.dart';
 import 'package:local_update/bloc/home_state.dart';
 import 'package:local_update/models/character_model.dart';
+import 'package:local_update/service/connectivity_service.dart';
 import 'package:local_update/utils/get_it.dart';
 import 'pages/home_page.dart';
 
@@ -15,6 +16,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(CharacterModelAdapter());
   await Hive.openBox<CharacterModel>('characters');
+  await ConnectivityService.checkConnection();
   setUpGetIt();
   runApp(
     const MyApp(),
@@ -22,8 +24,20 @@ void main() async {
 }
 
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+    ConnectivityService.listenToConnection();
+  }
 
   @override
   Widget build(BuildContext context) {

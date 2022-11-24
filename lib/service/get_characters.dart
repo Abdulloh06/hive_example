@@ -11,13 +11,13 @@ import 'package:local_update/service/connectivity_service.dart';
 
 class GetCharacters {
 
-  Future<List<CharacterModel>> getCharacters() async {
+  Future<List<CharacterModel>> getCharacters({required int page}) async {
 
     try {
 
-      if(await ConnectivityService.checkConnection()) {
+      if(ConnectivityService.hasConnection) {
         final response = await http.get(
-          Uri.parse('https://rickandmortyapi.com/api/character'),
+          Uri.parse('https://rickandmortyapi.com/api/character?page=$page'),
         );
 
         if(response.statusCode == HttpStatus.ok) {

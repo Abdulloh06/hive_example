@@ -10,7 +10,9 @@ class HomeInitState extends HomeState {
 
   final List<CharacterModel> characters;
 
-  HomeInitState({required this.characters});
+  HomeInitState({
+    required this.characters,
+  });
 
   @override
   List<Object?> get props => [characters];
